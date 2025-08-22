@@ -29,7 +29,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // MongoDB bağlantısı
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://askmyai_user:AskMyAI2024!@cluster0.jhsptkt.mongodb.net/askmyai?retryWrites=true&w=majority&ssl=false&tls=false&serverSelectionTimeoutMS=10000&socketTimeoutMS=30000&connectTimeoutMS=10000';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://askmyai_railway_user:AskMyAI2024!@cluster0.jhsptkt.mongodb.net/askmyai?retryWrites=true&w=majority&ssl=false&tls=false&serverSelectionTimeoutMS=10000&socketTimeoutMS=30000&connectTimeoutMS=10000';
 const client = new MongoClient(MONGODB_URI, {
   maxPoolSize: 10,
   serverSelectionTimeoutMS: 10000,
