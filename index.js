@@ -29,14 +29,16 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // MongoDB bağlantısı
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://askmyai_user:AskMyAI2024!@cluster0.jhsptkt.mongodb.net/askmyai?retryWrites=true&w=majority&ssl=false&tls=false&serverSelectionTimeoutMS=5000';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://askmyai_user:AskMyAI2024!@cluster0.jhsptkt.mongodb.net/askmyai?retryWrites=true&w=majority&ssl=false&tls=false&serverSelectionTimeoutMS=10000&socketTimeoutMS=30000&connectTimeoutMS=10000';
 const client = new MongoClient(MONGODB_URI, {
-  maxPoolSize: 5,
-  serverSelectionTimeoutMS: 5000,
-  socketTimeoutMS: 10000,
-  connectTimeoutMS: 5000,
+  maxPoolSize: 10,
+  serverSelectionTimeoutMS: 10000,
+  socketTimeoutMS: 30000,
+  connectTimeoutMS: 10000,
   ssl: false,
-  tls: false
+  tls: false,
+  retryWrites: true,
+  w: 'majority'
 });
 
 // Google Play API ayarları
