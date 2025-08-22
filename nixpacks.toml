@@ -9,3 +9,6 @@ cmds = ["echo 'Build completed'"]
 
 [start]
 cmd = "npm start"
+
+[variables]
+PORT = "3000"
