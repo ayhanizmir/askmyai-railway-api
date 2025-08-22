@@ -45,11 +45,19 @@ const playAPI = google.androidpublisher('v3');
 
 // Google Play API authentication
 const getGooglePlayAuth = () => {
-  const auth = new google.auth.GoogleAuth({
-    keyFile: process.env.GOOGLE_SERVICE_ACCOUNT_KEY,
-    scopes: ['https://www.googleapis.com/auth/androidpublisher']
-  });
-  return auth;
+  try {
+    // Environment variable'dan JSON string'i parse et
+    const serviceAccountKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+    
+    const auth = new google.auth.GoogleAuth({
+      credentials: serviceAccountKey,
+      scopes: ['https://www.googleapis.com/auth/androidpublisher']
+    });
+    return auth;
+  } catch (error) {
+    console.error('Google Service Account Key parse error:', error);
+    throw new Error('Invalid Google Service Account configuration');
+  }
 };
 
 // Subscription durumunu kontrol et
