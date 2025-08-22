@@ -9,6 +9,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy for Railway
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 app.use(cors());
@@ -22,12 +25,14 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // MongoDB bağlantısı
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://askmyai_user:AskMyAI2024!@cluster0.jhsptkt.mongodb.net/askmyai?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://askmyai_user:AskMyAI2024!@cluster0.jhsptkt.mongodb.net/askmyai?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true';
 const client = new MongoClient(MONGODB_URI, {
   maxPoolSize: 10,
   serverSelectionTimeoutMS: 10000,
   socketTimeoutMS: 45000,
-  connectTimeoutMS: 10000
+  connectTimeoutMS: 10000,
+  tls: true,
+  tlsAllowInvalidCertificates: true
 });
 
 // Google Play API ayarları
